@@ -1,0 +1,33 @@
+---
+
+- name: install package server
+  become: yes
+  package:
+    name: keepalived
+    state: present
+
+- name: enable keepalived service
+  become: yes
+  service:
+    name: keepalived
+    state: started
+    enabled: yes
+
+- name: install keepalived parameters default
+  become: yes
+  template:
+    src: keepalived
+    dest: "{{systemd_env_dir}}/keepalived"
+  notify: restart keepalived
+
+- name: deploy keepalived config
+  become: yes
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: keepalived.conf.j2, dest: /etc/keepalived/keepalived.conf, mode: "0644" }
+  notify: restart keepalived
+  when: keepalived_enable is defined
+  tags: keepalived-config

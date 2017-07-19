@@ -1,0 +1,2 @@
+# Options for keepalived.
+KEEPALIVED_OPTIONS="-D -P"

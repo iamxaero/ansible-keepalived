@@ -1,0 +1,10 @@
+---
+
+keepalived_global_defs:
+  email: 
+    - local@domain.ru
+  from_domain: gomain.ru
+  smtp_server: 127.0.0.1
+  smtp_connect_timeout: 30
+
+  systemd_env_dir: /etc/sysconfig
