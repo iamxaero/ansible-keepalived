@@ -1,5 +1,5 @@
 #For exemple host or group var for cross vrrp instances:
-
+```
 keepalived_enable: yes
 keepalived_vrrp_scripts:
     chk_script:
@@ -40,9 +40,9 @@ keepalived_vrrp_instances:
         notify_master: /usr/local/bin/manage_keepalived.sh master
         notify_backup: /usr/local/bin/manage_keepalived.sh backup
         notify_fault: /usr/local/bin/manage_keepalived.sh fault
-
+```
 #For exemple host or group var for single vrrp instances:
-
+```
  keepalived_enable: yes
  keepalived_vrrp_scripts:
      chk_script:
@@ -66,3 +66,4 @@ keepalived_vrrp_instances:
          track_scripts:
              - chk_script
          notify_fault: /usr/bin/systemctl restart nameservices
+```
