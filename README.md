@@ -3,7 +3,7 @@ For exemple host or group var for cross vrrp instances:
 keepalived_enable: yes
 
 keepalived_vrrp_scripts:
-    chk_ntp:
+    chk_script:
         script: '/usr/local/bin/manage_keepalived.sh status'
         rise: 1
         interval: 60
@@ -13,32 +13,32 @@ keepalived_vrrp_instances:
     VI_44:
         interface: eth0
         state: MASTER
-        virtual_router_id: 44
+        virtual_router_id: 10
         priority: 150
         advert_int: 1
         smtp_alert: true
         auth_type: PASS
-        auth_pass: ntpmaster
+        auth_pass: password
         virtual_ipaddresses:
             - *.*.*.*
         track_scripts:
-            - chk_ntp
+            - chk_script
         notify_master: /usr/local/bin/manage_keepalived.sh master
         notify_backup: /usr/local/bin/manage_keepalived.sh backup
         notify_fault: /usr/local/bin/manage_keepalived.sh fault
     VI_45:$
         interface: eth0
         state: BACKUP
-        virtual_router_id: 45
+        virtual_router_id: 11
         priority: 100
         advert_int: 1
         smtp_alert: true
         auth_type: PASS
-        auth_pass: ntpmaster2
+        auth_pass: password
         virtual_ipaddresses:
             - *.*.*.*
         track_scripts:
-            - chk_ntp
+            - chk_script
         notify_master: /usr/local/bin/manage_keepalived.sh master
         notify_backup: /usr/local/bin/manage_keepalived.sh backup
         notify_fault: /usr/local/bin/manage_keepalived.sh fault
@@ -47,7 +47,7 @@ For exemple host or group var for single vrrp instances:
 
  keepalived_enable: yes
  keepalived_vrrp_scripts:
-     chk_haproxy:
+     chk_script:
          script: '/sbin/pidof nameservices'
          rise: 1
          interval: 5
@@ -58,13 +58,13 @@ For exemple host or group var for single vrrp instances:
          state: MASTER (On the second server BACKUP)
          priority: 150 (On the second server less priority)
          interface: eth0
-         virtual_router_id: 55
+         virtual_router_id: 22
          advert_int: 1
          nopreempt: true
          smtp_alert: true
 
          auth_type: PASS
-         auth_pass: duremar
+         auth_pass: password
 
          virtual_ipaddresses:
              - 10.10.10.01
