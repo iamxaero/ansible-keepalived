@@ -1,13 +1,14 @@
 For exemple host or group var for cross vrrp instances:
+
 keepalived_enable: yes
 
 keepalived_vrrp_scripts:
-    chk_ntp:$
+    chk_ntp:
         script: '/usr/local/bin/manage_keepalived.sh status'
-        rise: 1$
-        interval: 60$
-        fall: 2 $
-$
+        rise: 1
+        interval: 60
+        fall: 2
+
 keepalived_vrrp_instances:
     VI_44:
         interface: eth0
