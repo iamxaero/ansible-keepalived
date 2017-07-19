@@ -1,14 +1,12 @@
-For exemple host or group var for cross vrrp instances:
+#For exemple host or group var for cross vrrp instances:
 
 keepalived_enable: yes
-
 keepalived_vrrp_scripts:
     chk_script:
         script: '/usr/local/bin/manage_keepalived.sh status'
         rise: 1
         interval: 60
         fall: 2
-
 keepalived_vrrp_instances:
     VI_44:
         interface: eth0
@@ -43,7 +41,7 @@ keepalived_vrrp_instances:
         notify_backup: /usr/local/bin/manage_keepalived.sh backup
         notify_fault: /usr/local/bin/manage_keepalived.sh fault
 
-For exemple host or group var for single vrrp instances:
+#For exemple host or group var for single vrrp instances:
 
  keepalived_enable: yes
  keepalived_vrrp_scripts:
@@ -52,7 +50,6 @@ For exemple host or group var for single vrrp instances:
          rise: 1
          interval: 5
          fall: 2
-
  keepalived_vrrp_instances:
      VI_55:
          state: MASTER (On the second server BACKUP)
@@ -62,13 +59,10 @@ For exemple host or group var for single vrrp instances:
          advert_int: 1
          nopreempt: true
          smtp_alert: true
-
          auth_type: PASS
          auth_pass: password
-
          virtual_ipaddresses:
              - 10.10.10.01
          track_scripts:
              - chk_script
-
          notify_fault: /usr/bin/systemctl restart nameservices
